@@ -27,8 +27,8 @@ async function fetchTasks() {
     }
 }
 
-function captureInput() {
-    const input = document.getElementById('new-task-input').value;
+function captureInput(id) {
+    const input = document.getElementById(id).value;
     console.log('captureInput value: ' + input);
     return input;
 }
@@ -47,6 +47,25 @@ async function createTask(value) {
         }
     } catch(err) {
         throw new Error('Serverside error creating a new task: ' + err);
+    }
+}
+
+async function editTask(original, edit) {
+    try {
+        console.log('Original: ' + original);
+        console.log('Edit: ' + edit);
+
+        const response = await fetch(localhost + port + tasks + `?original=${original}&edit=${edit}`, {method: 'put'});
+
+        
+
+        if (response.ok) {
+            const jsonResponse = await response.json();
+
+            console.log(jsonResponse);
+        }
+    } catch(err) {
+        throw new Error('Serverside PUT error: ' + err); 
     }
 }
 

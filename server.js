@@ -11,6 +11,19 @@ const listeningMsg = 'Listening to Port: ' + port;
 
 // Module imports
 
+// Helper functions
+function newError(msg, err) {
+    throw new Error(msg + err);
+}
+
+function findIndex(name, arr) {
+    for (let i = 0; i < arr.length; i++) {
+        if (name === arr[i]) {
+            return i;
+        }
+    }
+}
+
 // Host public folder
 app.use(express.static('public'));
 
@@ -19,7 +32,7 @@ app.get('/tasks', (req, res, next) => {
     fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
 
         if (err) {
-            throw new Error('Could not read file: ' + err);
+            newError('Could not read file', err);
         } else {
             const data = JSON.parse(result);
             res.status(200).json({data: data});
@@ -36,7 +49,7 @@ app.post('/tasks', (req, res, next) => {
 
     fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
         if (err) {
-            throw new Error('Could not read file: ' + err);
+            newError('Could not read file: ', err);
         } else {
 
             console.log('result: ');
@@ -53,7 +66,7 @@ app.post('/tasks', (req, res, next) => {
 
             fs.writeFile('./database/tasks.json', returnData, (err) => {
                 if (err) {
-                    throw new Error('Write failed: ' + err);
+                    newError('Write failed in POST: ', err);
                 } else {
                     console.log('Write successful');
                 }
@@ -62,6 +75,50 @@ app.post('/tasks', (req, res, next) => {
             const lastIndex = data.list.length - 1;
             
             res.status(201).json({data: data.list[lastIndex]});
+        }
+    })
+})
+
+// App PUT edit task
+app.put('/tasks', (req, res, next) => {
+    const original = req.query.original;
+    const edit = req.query.edit;
+
+    console.log('Original: ' + original);
+    console.log('Edit: ' + edit);
+
+    fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
+        if (err) {
+            newError('Could not read file: ', err);
+        } else {
+            let data = JSON.parse(result);
+
+            const originalIndex = findIndex(original, data.list);
+
+            if (originalIndex) {
+                data.list[originalIndex] = edit;
+
+                console.log('Data object after edit');
+                console.log(data);
+
+                let returnData = JSON.stringify(data);
+
+                console.log('returnData stringify: ');
+                console.log(returnData);
+
+                fs.writeFile('./database/tasks.json', returnData, (err) => {
+                    if (err) {
+                        newError('Write failed in PUT: ', err);
+                    } else {
+                        console.log('Write successful');
+                        console.log(returnData);
+                        
+                        res.status(200).json({data: data.list[originalIndex]});
+                    }
+                })
+            } else {
+                res.status(404).send();
+            }
         }
     })
 })
