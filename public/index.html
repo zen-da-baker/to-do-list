@@ -27,11 +27,16 @@
             <p id="task-1"></p>
 
             <h3>Create New Task</h3>
-            <form action="/tasks" method="post">
-                <input id="new-task-input" type="text" name="task" placeholder="New Task..."/>
+            <input id="new-task-input" type="text" name="string" placeholder="New task..." />
+            <button id="new-task-btn" onclick="createTask(captureInput())">Create Task</button>
 
-                <input type="submit" id="new-task-btn" value="Submit"  />
-            </form>
+            <!--
+                <form action="/tasks" method="post">
+                    <input id="new-task-input" type="text" name="string" placeholder="New Task..."/>
+
+                    <input type="submit" id="new-task-btn" value="Submit"  />
+                </form>
+            -->
             
 
             <h3>Edit Task</h3>

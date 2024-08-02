@@ -27,10 +27,18 @@ async function fetchTasks() {
     }
 }
 
+function captureInput() {
+    const input = document.getElementById('new-task-input').value;
+    console.log('captureInput value: ' + input);
+    return input;
+}
+
 // Create list item
 async function createTask(value) {
     try {
-        const response = await fetch(localhost + port + tasks + `?string=${value}`);
+        const response = await fetch(localhost + port + tasks + `?task=${value}`, {method: 'post'});
+
+        console.log('createTask value: ' + value);
 
         if (response.ok) {
             const jsonResponse = await response.json();

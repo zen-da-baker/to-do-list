@@ -30,6 +30,10 @@ app.get('/tasks', (req, res, next) => {
 
 // App POST new task
 app.post('/tasks', (req, res, next) => {
+    
+    console.log('req.query.task');
+    console.log(req.query.task);
+
     fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
         if (err) {
             throw new Error('Could not read file: ' + err);
@@ -47,22 +51,17 @@ app.post('/tasks', (req, res, next) => {
             console.log('returnData: ');
             console.log(returnData);
 
-            if (returnData == null) {
-                throw new Error('Returned null: ' + err);
-            } else {
-                fs.writeFile('./database/tasks.json', returnData, 'utf8', () => {
-                    console.log('Write successful');
-                });
-            }
-
-            fs.readFile('./database/tasks.json', 'utf8', (err, results) => {
+            fs.writeFile('./database/tasks.json', returnData, (err) => {
                 if (err) {
-                    throw new Error('There was an error reading the database file after creating a new item: ' + err);
+                    throw new Error('Write failed: ' + err);
                 } else {
-                    let newData = JSON.parse(results);
-                    res.status(200).json({data: newData});
+                    console.log('Write successful');
                 }
-            })
+            });
+
+            const lastIndex = data.list.length - 1;
+            
+            res.status(201).json({data: data.list[lastIndex]});
         }
     })
 })
