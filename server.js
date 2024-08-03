@@ -17,6 +17,21 @@ function newError(msg, err) {
 }
 
 function findIndex(name, arr) {
+    let i = 0;
+
+    while (i < arr.length) {
+        if (name === arr[i]) {
+            return i;
+        } else {
+            i++;
+        }
+    }
+
+    if (i == arr.length) {
+        return -1;
+    }
+
+    /*
     for (let i = 0; i < arr.length; i++) {
         if (name === arr[i]) {
             return i;
@@ -26,6 +41,7 @@ function findIndex(name, arr) {
             return -1;
         }
     }
+        */
 }
 
 // Host public folder
@@ -36,6 +52,7 @@ app.get('/tasks', (req, res, next) => {
     fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
 
         if (err) {
+            res.status(404).send();
             newError('Could not read file', err);
         } else {
             const data = JSON.parse(result);
@@ -98,8 +115,10 @@ app.put('/tasks', (req, res, next) => {
             let data = JSON.parse(result);
 
             const originalIndex = findIndex(original, data.list);
+            console.log('originalIndex: ');
+            console.log(originalIndex);
 
-            if (originalIndex) {
+            if (originalIndex !== -1) {
                 data.list[originalIndex] = edit;
 
                 console.log('Data object after edit');
@@ -134,6 +153,7 @@ app.delete('/tasks', (req, res, next) => {
 
     fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
         if (err) {
+            res.status(404).send();
             newError('Could not read file: ' + err);
         } else {
             console.log('Result: ');
@@ -141,12 +161,14 @@ app.delete('/tasks', (req, res, next) => {
 
             let data = JSON.parse(result);
 
-            console.log('Data object parsed');
+            console.log('Data object parsed: ');
             console.log(data);
 
             const targetIndex = findIndex(target, data.list);
+            console.log('Target index: ');
+            console.log(targetIndex);
 
-            if (targetIndex == -1) {
+            if (targetIndex === -1) {
                 res.status(404).send();
             } else {
                 data.list.splice(targetIndex, 1);
@@ -158,21 +180,11 @@ app.delete('/tasks', (req, res, next) => {
                         newError('Could not write DELETE request: ', err);
                     } else {
                         console.log('Write successful');
+                        res.status(204).send();
                     }
                 })
             }
             
-        }
-    })
-
-    fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
-        if (err) {
-            newError('Could not read file after DELETE request: ', err);
-        } else {
-            console.log('Result after data write: ');
-            console.log(result);
-
-            res.status(204).send();
         }
     })
 })
