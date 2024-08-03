@@ -17,7 +17,7 @@ function displayData(list) {
     console.log('displayData tasks: ');
     console.log(tasks);
 
-    display.innerHTML = tasks;
+    display.innerHTML = tasks.join(" ");
 }
 
 // API calls

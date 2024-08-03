@@ -21,6 +21,10 @@ function findIndex(name, arr) {
         if (name === arr[i]) {
             return i;
         }
+
+        if (i == arr.length) {
+            return -1;
+        }
     }
 }
 
@@ -142,21 +146,22 @@ app.delete('/tasks', (req, res, next) => {
 
             const targetIndex = findIndex(target, data.list);
 
-            if (!targetIndex) {
+            if (targetIndex == -1) {
                 res.status(404).send();
+            } else {
+                data.list.splice(targetIndex, 1);
+
+                const returnData = JSON.stringify(data);
+
+                fs.writeFile('./database/tasks.json', returnData, (err) => {
+                    if (err) {
+                        newError('Could not write DELETE request: ', err);
+                    } else {
+                        console.log('Write successful');
+                    }
+                })
             }
-
-            data.list.splice(targetIndex, 1);
-
-            const returnData = JSON.stringify(data);
-
-            fs.writeFile('./database/tasks.json', returnData, (err) => {
-                if (err) {
-                    newError('Could not write DELETE request: ', err);
-                } else {
-                    console.log('Write successful');
-                }
-            })
+            
         }
     })
 
