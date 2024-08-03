@@ -14,7 +14,7 @@ function displayData(list) {
         tasks.push(
             `<div class="flex"> 
                 <p>${i}. ${list[i]}</p> 
-                <button onclick="deleteTask(
+                <button class="inline-btn" onclick="deleteTask(
                     '${list[i]}'
                     )">X</button> 
             </div>`

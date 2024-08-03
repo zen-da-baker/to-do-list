@@ -51,5 +51,20 @@ html {
 /* 4. Components
 ========================================================= */
 
+.btn {
+    padding: 0.25rem;
+}
+
+.inline-btn {
+    margin: 0 1rem;
+    padding: 0.125rem 0.25rem;
+
+    border-radius: 0.25rem;
+}
+.inline-btn:hover {
+    background-color: hsl(210, 10%, 20%);
+    color: white;
+}
+
 /* 5. Responsive Design
 ========================================================= */
