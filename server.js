@@ -123,5 +123,54 @@ app.put('/tasks', (req, res, next) => {
     })
 })
 
+// App DELETE item
+app.delete('/tasks', (req, res, next) => {
+    const target = req.query.task;
+    console.log('Target: ' + target);
+
+    fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
+        if (err) {
+            newError('Could not read file: ' + err);
+        } else {
+            console.log('Result: ');
+            console.log(result);
+
+            let data = JSON.parse(result);
+
+            console.log('Data object parsed');
+            console.log(data);
+
+            const targetIndex = findIndex(target, data.list);
+
+            if (!targetIndex) {
+                res.status(404).send();
+            }
+
+            data.list.splice(targetIndex, 1);
+
+            const returnData = JSON.stringify(data);
+
+            fs.writeFile('./database/tasks.json', returnData, (err) => {
+                if (err) {
+                    newError('Could not write DELETE request: ', err);
+                } else {
+                    console.log('Write successful');
+                }
+            })
+        }
+    })
+
+    fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
+        if (err) {
+            newError('Could not read file after DELETE request: ', err);
+        } else {
+            console.log('Result after data write: ');
+            console.log(result);
+
+            res.status(204).json({data: result});
+        }
+    })
+})
+
 // App listen
 app.listen(port, console.log(listeningMsg));

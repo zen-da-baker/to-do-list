@@ -50,6 +50,7 @@ async function createTask(value) {
     }
 }
 
+// Edit list item given a original name and new name
 async function editTask(original, edit) {
     try {
         console.log('Original: ' + original);
@@ -66,6 +67,24 @@ async function editTask(original, edit) {
         }
     } catch(err) {
         throw new Error('Serverside PUT error: ' + err); 
+    }
+}
+
+// Delete list item given a name
+async function deleteTask(value) {
+    try {
+        console.log(value);
+
+        const response = await fetch(localhost + port + tasks + `?task=${value}`, {method: 'delete'});
+
+            if (response.ok) {
+                const jsonResponse = response.json();
+
+                console.log(jsonResponse);
+            }
+        
+    } catch(err) {
+        throw new Error('Serverside DELETE error: ' + err);
     }
 }
 
