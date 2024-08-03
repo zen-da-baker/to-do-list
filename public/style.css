@@ -29,14 +29,23 @@ html {
 ========================================================= */
 .header, .footer {
     background-color: hsl(120, 50%, 80%);
+    padding: 1rem;
 }
 
 .main {
-    background-color: hsl(120, 10%, 90%)
+    background-color: hsl(120, 10%, 90%);
+    padding: 1rem;
 }
 
 .flex {
     display: flex;
+}
+
+.card {
+    border: 0.1rem solid black;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem;
 }
 
 /* 4. Components

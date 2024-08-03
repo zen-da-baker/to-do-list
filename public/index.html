@@ -12,45 +12,40 @@
     </head>
 
     <body>
-        <header>
+        <header class="header">
             <h1>To-Do List</h1>
         </header>
 
-        <main>
+        <main class="main">
             <h2>App</h2>
             <p>This is a To-Do List app.</p>
 
-            <h3>Fetch First Task</h3>
-            <button id="fetchBtn" onclick="fetchTasks()" >Fetch Tasks</button>
-
-            <h4>First Task</h4>
-            <p id="task-1"></p>
-
-            <h3>Create New Task</h3>
-            <input id="new-task-input" type="text" name="string" placeholder="New task..." />
-            <button id="new-task-btn" onclick="createTask(captureInput('new-task-input'))">Create Task</button>
-
-            <!--
-                <form action="/tasks" method="post">
-                    <input id="new-task-input" type="text" name="string" placeholder="New Task..."/>
-
-                    <input type="submit" id="new-task-btn" value="Submit"  />
-                </form>
-            -->
+            <div class="card">
             
+                <h3>Fetch First Task</h3>
+                <button id="fetchBtn" onclick="fetchTasks()" >Fetch Tasks</button>
 
-            <h3>Edit Task</h3>
-            <input id="original-task" type="text" placeholder="Original task..." />
-            <input id="new-task" type="text" placeholder="New task..." />
+                <h3>Create New Task</h3>
+                <input id="new-task-input" type="text" name="string" placeholder="New task..." />
+                <button id="new-task-btn" onclick="createTask(captureInput('new-task-input'))">Create Task</button>
 
-            <button id="edit-task" onclick="editTask(captureInput('original-task'), captureInput('new-task'))">Edit Task</button>
+                <h3>Edit Task</h3>
+                <input id="original-task" type="text" placeholder="Original task..." />
+                <input id="new-task" type="text" placeholder="New task..." />
 
-            <h3>Delete Task</h3>
-            <input id="target-task" type="text" placeholder="Delete task..." />
-            <button id="delete-button" onclick="deleteTask(captureInput('target-task'))">Delete Task</button>
+                <button id="edit-task" onclick="editTask(captureInput('original-task'), captureInput('new-task'))">Edit Task</button>
+
+                <h3>Delete Task</h3>
+                <input id="target-task" type="text" placeholder="Delete task..." />
+                <button id="delete-button" onclick="deleteTask(captureInput('target-task'))">Delete Task</button>
+
+            </div>
+
+            <h3>Display Tasks</h3>
+            <div id="display-tasks"></div>
         </main>
 
-        <footer>
+        <footer class="footer">
             <h3>Footer</h3>
         </footer>
         

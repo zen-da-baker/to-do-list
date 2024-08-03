@@ -2,10 +2,26 @@
 
 let taskValue = document.getElementById('new-task-input').value;
 
+let display = document.getElementById('display-tasks');
+
 // Localhost
 const localhost = 'http://localhost';
 const port = ':5500';
 const tasks = '/tasks';
+
+// Display function
+function displayData(list) {
+    let tasks = [];
+
+    for (let i = 0; i < list.length; i++) {
+        tasks.push(`<p>${i}. ${list[i]}</p>`);
+    }
+
+    console.log('displayData tasks: ');
+    console.log(tasks);
+
+    display.innerHTML = tasks;
+}
 
 // API calls
 
@@ -18,7 +34,10 @@ async function fetchTasks() {
             const jsonResponse = await response.json();
             console.log(jsonResponse);
             console.log(jsonResponse.data.list[0]);
-            document.getElementById('task-1').innerHTML = jsonResponse.data.list[0];
+
+            // document.getElementById('task-1').innerHTML = jsonResponse.data.list[0];
+
+            displayData(jsonResponse.data.list);
         } else {
             throw new Error('Response not ok');
         }
@@ -40,8 +59,12 @@ async function createTask(value) {
 
         console.log('createTask value: ' + value);
 
+        document.getElementById('new-task-input').value = '';
+
         if (response.ok) {
             const jsonResponse = await response.json();
+
+            fetchTasks();
 
             console.log(jsonResponse);
         }
@@ -77,11 +100,11 @@ async function deleteTask(value) {
 
         const response = await fetch(localhost + port + tasks + `?task=${value}`, {method: 'delete'});
 
-            if (response.ok) {
-                const jsonResponse = response.json();
+        if (response.ok) {
+            const jsonResponse = await response.json();
 
-                console.log(jsonResponse);
-            }
+            console.log(jsonResponse);
+        }
         
     } catch(err) {
         throw new Error('Serverside DELETE error: ' + err);
