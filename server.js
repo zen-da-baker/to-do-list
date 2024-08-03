@@ -167,7 +167,7 @@ app.delete('/tasks', (req, res, next) => {
             console.log('Result after data write: ');
             console.log(result);
 
-            res.status(204).json({data: result});
+            res.status(204).send();
         }
     })
 })

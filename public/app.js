@@ -1,7 +1,4 @@
 // DOM elements
-
-let taskValue = document.getElementById('new-task-input').value;
-
 let display = document.getElementById('display-tasks');
 
 // Localhost
@@ -81,10 +78,14 @@ async function editTask(original, edit) {
 
         const response = await fetch(localhost + port + tasks + `?original=${original}&edit=${edit}`, {method: 'put'});
 
+        document.getElementById('original-task').value = '';
+        document.getElementById('new-task').value = '';
         
 
         if (response.ok) {
             const jsonResponse = await response.json();
+
+            fetchTasks()
 
             console.log(jsonResponse);
         }
@@ -100,10 +101,10 @@ async function deleteTask(value) {
 
         const response = await fetch(localhost + port + tasks + `?task=${value}`, {method: 'delete'});
 
-        if (response.ok) {
-            const jsonResponse = await response.json();
+        document.getElementById('target-task').value = '';
 
-            console.log(jsonResponse);
+        if (response.ok) {
+            fetchTasks();
         }
         
     } catch(err) {
