@@ -11,7 +11,14 @@ function displayData(list) {
     let tasks = [];
 
     for (let i = 0; i < list.length; i++) {
-        tasks.push(`<p>${i}. ${list[i]}</p>`);
+        tasks.push(
+            `<div class="flex"> 
+                <p>${i}. ${list[i]}</p> 
+                <button onclick="deleteTask(
+                    '${list[i]}'
+                    )">X</button> 
+            </div>`
+        );
     }
 
     console.log('displayData tasks: ');
