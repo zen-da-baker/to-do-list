@@ -10,39 +10,7 @@ const port = 5500;
 const listeningMsg = 'Listening to Port: ' + port;
 
 // Module imports
-
-// Helper functions
-function newError(msg, err) {
-    throw new Error(msg + err);
-}
-
-function findIndex(name, arr) {
-    let i = 0;
-
-    while (i < arr.length) {
-        if (name === arr[i]) {
-            return i;
-        } else {
-            i++;
-        }
-    }
-
-    if (i == arr.length) {
-        return -1;
-    }
-
-    /*
-    for (let i = 0; i < arr.length; i++) {
-        if (name === arr[i]) {
-            return i;
-        }
-
-        if (i == arr.length) {
-            return -1;
-        }
-    }
-        */
-}
+const { newError, findIndex } = require('./modules/helper.js');
 
 // Host public folder
 app.use(express.static('public'));
