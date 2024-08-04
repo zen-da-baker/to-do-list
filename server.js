@@ -93,6 +93,41 @@ app.post('/tasks/:user', (req, res, next) => {
     })
 })
 
+// User POST new user
+app.post('/signup', (req, res, next) => {
+    const username = req.query.username;
+    const password = req.query.password;
+
+    fs.readFile(`./database/${username}.json`, 'utf8', (err, result) => {
+        if (!result) {
+            const data  = {
+                username: username,
+                password: password,
+                list: []
+            };
+
+            const responseData = JSON.stringify(data);
+
+            console.log('Response data string: ');
+            console.log(responseData);
+
+            fs.writeFile(`./database/${username}.json`, responseData, (err) => {
+                if (err) {
+                    newError('Write failed in POST for new user', err);
+                } else {
+                    console.log('Write successful');
+                }
+            });
+
+            res.status(201).json({creation: true, username: username});
+        } 
+
+        if (err) {
+            res.status(403).send();
+        }
+    });
+})
+
 // App PUT edit task
 app.put('/tasks/:user', (req, res, next) => {
     const user = req.params.user;

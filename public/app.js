@@ -5,7 +5,12 @@ let display = document.getElementById('display-tasks');
 const localhost = 'http://localhost';
 const port = ':5500';
 const tasks = '/tasks';
-const params = [];
+const params = ['user'];
+const lastIndex = params.length - 1;
+
+function findLastIndex(arr) {
+    return arr.length - 1;
+}
 
 // Display function
 function displayData(list) {
@@ -40,7 +45,7 @@ function storeUser(username) {
 // GET list
 async function fetchTasks() {
     try {
-        const response = await fetch(localhost + port + tasks + `/${params[0]}`);
+        const response = await fetch(localhost + port + tasks + `/${params[findLastIndex(params)]}`);
 
         if (response.ok) {
             const jsonResponse = await response.json();
@@ -67,7 +72,7 @@ function captureInput(id) {
 // Create list item
 async function createTask(value) {
     try {
-        const response = await fetch(localhost + port + tasks + `/${params[0]}` + `?task=${value}`, {method: 'post'});
+        const response = await fetch(localhost + port + tasks + `/${params[findLastIndex(params)]}` + `?task=${value}`, {method: 'post'});
 
         console.log('createTask value: ' + value);
 
@@ -91,7 +96,7 @@ async function editTask(original, edit) {
         console.log('Original: ' + original);
         console.log('Edit: ' + edit);
 
-        const response = await fetch(localhost + port + tasks + `/${params[0]}` + `?original=${original}&edit=${edit}`, {method: 'put'});
+        const response = await fetch(localhost + port + tasks + `/${params[findLastIndex(params)]}` + `?original=${original}&edit=${edit}`, {method: 'put'});
 
         document.getElementById('original-task').value = '';
         document.getElementById('new-task').value = '';
@@ -114,7 +119,7 @@ async function deleteTask(value) {
     try {
         console.log(value);
 
-        const response = await fetch(localhost + port + tasks + `/${params[0]}` + `?task=${value}`, {method: 'delete'});
+        const response = await fetch(localhost + port + tasks + `/${params[findLastIndex(params)]}` + `?task=${value}`, {method: 'delete'});
 
         document.getElementById('target-task').value = '';
 

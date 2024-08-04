@@ -48,6 +48,12 @@ html {
     margin: 1rem;
 }
 
+#credential-msg {
+    display: none;
+    background-color: hsl(1, 50%, 20%);
+    color: white;
+}
+
 /* 4. Components
 ========================================================= */
 

@@ -22,12 +22,12 @@
             <div id="login">
                 <h2>Log In</h2>
 
+                <div id="credential-msg"></div>
+
                 <input id="login-username" type="text" placeholder="Username..." />
                 <input id="login-password" type="password" placeholder="Password..." />
 
-                <button 
-                    id="login-btn" 
-                    onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))">
+                <button id="login-btn" onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))">
                         Login
                 </button>
 
@@ -37,9 +37,11 @@
 
                 <h3>Create Account</h3>
                 <input id="signup-username" type="text" placeholder="Username..." />
-                <input id="signup-password" type="text" placeholder="Password..." />
+                <input id="signup-password" type="password" placeholder="Password..." />
 
-                <button id="signup-btn" onclick="createUser(captureInput('signup-username'), captureInput('signup-password'))">Create Account</button>
+                <button id="signup-btn" onclick="createUser(captureInput('signup-username'), captureInput('signup-password')); storeUser(captureInput('signup-username'))">
+                    Create Account
+                </button>
             </div>
 
             <div id="app">

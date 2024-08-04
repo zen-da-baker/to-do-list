@@ -1,3 +1,6 @@
+// DOM elements
+const msg = document.getElementById('credential-msg');
+
 // API link
 const localpath = 'http://localhost:5500/signup';
 
@@ -15,7 +18,11 @@ async function createUser(username, password) {
             loginScreen.style.display = 'none';
 
         } else {
-            console.log('Login not valid');
+            console.log('Signup not successful. User account exists.');
+
+            msg.style.display = 'block';
+            msg.innerHTML = `<p>Sign Up not successful. User account already exists.</p>`
+        
             login = false;
         }
     } catch(err) {
