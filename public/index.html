@@ -19,9 +19,10 @@
 
         <main class="main">
             <div id="login">
-                <input id="username" type="text" placeholder="Username" />
-                <input id="password" type="password" placeholder="Password" />
+                <input id="login-username" type="text" placeholder="Username" />
+                <input id="login-password" type="password" placeholder="Password" />
 
+                <button id="login-btn" onclick="submitCredentials(captureInput('login-username'), captureInput('login-password'))">Login</button>
             </div>
 
             <div id="app">

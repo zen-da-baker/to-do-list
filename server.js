@@ -10,10 +10,30 @@ const port = 5500;
 const listeningMsg = 'Listening to Port: ' + port;
 
 // Module imports
-const { newError, findIndex } = require('./modules/helper.js');
+const { newError, findIndex, checkCredentials } = require('./modules/helper.js');
 
 // Host public folder
 app.use(express.static('public'));
+
+// App GET login credentials
+app.get('/login', (req, res, next) => {
+    const username = req.query.username;
+    const password = req.query.password;
+
+    const validation = checkCredentials(username, password);
+
+    console.log('Validation helper returned to GET request');
+    console.log(validation);
+
+    if (validation == true) {
+        console.log("Login found and validated on server side");
+        res.status(200).json({validation: true});
+    } else {
+        console.log("Login not found on server side");
+        res.status(404).send();
+    }
+
+})
 
 // App GET all tasks
 app.get('/tasks', (req, res, next) => {
