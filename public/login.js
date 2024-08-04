@@ -28,17 +28,12 @@ async function submitCredentials(username, password) {
         if (response.ok) {
             console.log('Login validated');
 
-            const jsonResponse = response.json();
+            const jsonResponse = await response.json();
 
-            if (jsonResponse.validation == true) {
+            console.log(jsonResponse);
 
-                console.log(jsonResponse);
-
-                login = true;
-
-                app.style.display = 'block';
-                loginScreen.style.display = 'none';
-            }
+            app.style.display = 'block';
+            loginScreen.style.display = 'none';
         } else {
             console.log('Login not valid');
             login = false;

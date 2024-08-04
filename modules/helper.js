@@ -35,38 +35,37 @@ function findIndex(name, arr) {
 }
 
 function checkCredentials(username, password) {
-    let validationStatus = [];
+    let validationStatus = [false];
 
     function validation(data) {
         if (username === data.username && password === data.password) {
             console.log('Helper validation: ');
-            console.log('true');
+            console.log(true);
 
-            validationStatus.push('true');
+            return true;
         } else {
             console.log('Helper validation: ');
-            console.log('false');
+            console.log(false);
 
-            validationStatus.push('false');
+            return false;
         }
     }
 
-    fs.readFile(`./database/${username}.json`, 'utf8', (err, result) => {
-        if (err) {
-            throw new Error('Could not read file: ' + err);
-        } else {
-            const data = JSON.parse(result);
+    const result = fs.readFileSync(`./database/${username}.json`, 'utf8');
 
-            console.log('Data parsed at login: ');
-            console.log(data);
+    const data = JSON.parse(result);
 
-            validation(data);
-        }
-    })
+    console.log('Data parsed at login: ');
+    console.log(data);
 
-    console.log('Validation status array: ');
+    const status = validation(data);
+
+    validationStatus.push(status);
+
+
+    console.log('Validation status array outside readFile: ');
     console.log(validationStatus);
-    return validationStatus[0];
+    return validationStatus[1];
 }
 
 module.exports = { newError, findIndex, checkCredentials };
