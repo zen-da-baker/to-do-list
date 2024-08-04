@@ -8,8 +8,20 @@ const tasks = '/tasks';
 const params = ['user'];
 const lastIndex = params.length - 1;
 
+// Helper functions
 function findLastIndex(arr) {
     return arr.length - 1;
+}
+
+// Signout
+function signout() {
+    app.style.display = 'none';
+    loginScreen.style.display = 'block';
+
+    document.getElementById("login-username").value = '';
+    document.getElementById("login-password").value = '';
+    document.getElementById("signup-username").value = '';
+    document.getElementById("signup-password").value = '';
 }
 
 // Display function

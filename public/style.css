@@ -48,11 +48,17 @@ html {
     margin: 1rem;
 }
 
+.app-head {
+    display: flex;
+    justify-content: space-between;
+}
+
 #credential-msg {
     display: none;
     background-color: hsl(1, 50%, 20%);
     color: white;
 }
+
 
 /* 4. Components
 ========================================================= */
