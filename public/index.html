@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <script src="app.js" defer></script>
+        <script src="login.js" defer></script>
 
         <link rel="stylesheet" href="style.css"/>
 
@@ -17,32 +18,41 @@
         </header>
 
         <main class="main">
-            <h2>App</h2>
-            <p>This is a To-Do List app.</p>
-
-            <div class="card">
-            
-                <h3>Get Tasks</h3>
-                <button id="fetchBtn" onclick="fetchTasks()" class="btn">Fetch Tasks</button>
-
-                <h3>Create New Task</h3>
-                <input id="new-task-input" type="text" name="string" placeholder="New task..." />
-                <button id="new-task-btn" onclick="createTask(captureInput('new-task-input'))" class="btn">Create Task</button>
-
-                <h3>Edit Task</h3>
-                <input id="original-task" type="text" placeholder="Original task..." />
-                <input id="new-task" type="text" placeholder="New task..." />
-
-                <button id="edit-task" onclick="editTask(captureInput('original-task'), captureInput('new-task'))" class="btn">Edit Task</button>
-
-                <h3>Delete Task</h3>
-                <input id="target-task" type="text" placeholder="Delete task..." />
-                <button id="delete-button" onclick="deleteTask(captureInput('target-task'))" class="btn">Delete Task</button>
+            <div id="login">
+                <input id="username" type="text" placeholder="Username" />
+                <input id="password" type="password" placeholder="Password" />
 
             </div>
 
-            <h3>Display Tasks</h3>
-            <div id="display-tasks"></div>
+            <div id="app">
+                <h2>App</h2>
+                <p>This is a To-Do List app.</p>
+
+                <div class="card">
+                
+                    <h3>Get Tasks</h3>
+                    <button id="fetchBtn" onclick="fetchTasks()" class="btn">Fetch Tasks</button>
+
+                    <h3>Create New Task</h3>
+                    <input id="new-task-input" type="text" name="string" placeholder="New task..." />
+                    <button id="new-task-btn" onclick="createTask(captureInput('new-task-input'))" class="btn">Create Task</button>
+
+                    <h3>Edit Task</h3>
+                    <input id="original-task" type="text" placeholder="Original task..." />
+                    <input id="new-task" type="text" placeholder="New task..." />
+
+                    <button id="edit-task" onclick="editTask(captureInput('original-task'), captureInput('new-task'))" class="btn">Edit Task</button>
+
+                    <h3>Delete Task</h3>
+                    <input id="target-task" type="text" placeholder="Delete task..." />
+                    <button id="delete-button" onclick="deleteTask(captureInput('target-task'))" class="btn">Delete Task</button>
+
+                </div>
+
+                <h3>Display Tasks</h3>
+                <div id="display-tasks"></div>
+            </div>
+            
         </main>
 
         <footer class="footer">
