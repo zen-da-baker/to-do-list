@@ -6,6 +6,7 @@
 
         <script src="app.js" defer></script>
         <script src="login.js" defer></script>
+        <script src="signup.js" defer></script>
 
         <link rel="stylesheet" href="style.css"/>
 
@@ -19,10 +20,26 @@
 
         <main class="main">
             <div id="login">
-                <input id="login-username" type="text" placeholder="Username" />
-                <input id="login-password" type="password" placeholder="Password" />
+                <h2>Log In</h2>
 
-                <button id="login-btn" onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))">Login</button>
+                <input id="login-username" type="text" placeholder="Username..." />
+                <input id="login-password" type="password" placeholder="Password..." />
+
+                <button 
+                    id="login-btn" 
+                    onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))">
+                        Login
+                </button>
+
+                <p>Don't have an account yet? Create an account below.</p>
+
+                <hr>
+
+                <h3>Create Account</h3>
+                <input id="signup-username" type="text" placeholder="Username..." />
+                <input id="signup-password" type="text" placeholder="Password..." />
+
+                <button id="signup-btn" onclick="createUser(captureInput('signup-username'), captureInput('signup-password'))">Create Account</button>
             </div>
 
             <div id="app">
