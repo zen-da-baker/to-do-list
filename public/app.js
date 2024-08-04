@@ -67,7 +67,7 @@ function captureInput(id) {
 // Create list item
 async function createTask(value) {
     try {
-        const response = await fetch(localhost + port + tasks + `?task=${value}`, {method: 'post'});
+        const response = await fetch(localhost + port + tasks + `/${params[0]}` + `?task=${value}`, {method: 'post'});
 
         console.log('createTask value: ' + value);
 
@@ -91,7 +91,7 @@ async function editTask(original, edit) {
         console.log('Original: ' + original);
         console.log('Edit: ' + edit);
 
-        const response = await fetch(localhost + port + tasks + `?original=${original}&edit=${edit}`, {method: 'put'});
+        const response = await fetch(localhost + port + tasks + `/${params[0]}` + `?original=${original}&edit=${edit}`, {method: 'put'});
 
         document.getElementById('original-task').value = '';
         document.getElementById('new-task').value = '';
@@ -114,7 +114,7 @@ async function deleteTask(value) {
     try {
         console.log(value);
 
-        const response = await fetch(localhost + port + tasks + `?task=${value}`, {method: 'delete'});
+        const response = await fetch(localhost + port + tasks + `/${params[0]}` + `?task=${value}`, {method: 'delete'});
 
         document.getElementById('target-task').value = '';
 
