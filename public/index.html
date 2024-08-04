@@ -12,7 +12,7 @@
         <title>To-Do List</title>
     </head>
 
-    <body onload="fetchTasks()">
+    <body>
         <header class="header">
             <h1>To-Do List</h1>
         </header>
@@ -22,7 +22,7 @@
                 <input id="login-username" type="text" placeholder="Username" />
                 <input id="login-password" type="password" placeholder="Password" />
 
-                <button id="login-btn" onclick="submitCredentials(captureInput('login-username'), captureInput('login-password'))">Login</button>
+                <button id="login-btn" onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))">Login</button>
             </div>
 
             <div id="app">

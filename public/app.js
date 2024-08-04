@@ -5,6 +5,7 @@ let display = document.getElementById('display-tasks');
 const localhost = 'http://localhost';
 const port = ':5500';
 const tasks = '/tasks';
+const params = [];
 
 // Display function
 function displayData(list) {
@@ -27,12 +28,19 @@ function displayData(list) {
     display.innerHTML = tasks.join(" ");
 }
 
+// Store user
+function storeUser(username) {
+    params.push(username);
+
+    console.log('User: ' + username);
+}
+
 // API calls
 
 // GET list
 async function fetchTasks() {
     try {
-        const response = await fetch(localhost + port + tasks);
+        const response = await fetch(localhost + port + tasks + `/${params[0]}`);
 
         if (response.ok) {
             const jsonResponse = await response.json();
@@ -117,6 +125,10 @@ async function deleteTask(value) {
     } catch(err) {
         throw new Error('Serverside DELETE error: ' + err);
     }
+}
+
+if (app.style.display == 'block') {
+    fetchTasks();
 }
 
 

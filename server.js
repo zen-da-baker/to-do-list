@@ -36,8 +36,12 @@ app.get('/login', (req, res, next) => {
 })
 
 // App GET all tasks
-app.get('/tasks', (req, res, next) => {
-    fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
+app.get('/tasks/:user', (req, res, next) => {
+    const user = req.params.user;
+
+    console.log('User at GET: ' + user);
+
+    fs.readFile(`./database/${user}.json`, 'utf8', (err, result) => {
 
         if (err) {
             res.status(404).send();
@@ -51,12 +55,13 @@ app.get('/tasks', (req, res, next) => {
 })
 
 // App POST new task
-app.post('/tasks', (req, res, next) => {
+app.post('/tasks/:user', (req, res, next) => {
+    const user = req.params.user;
     
     console.log('req.query.task');
     console.log(req.query.task);
 
-    fs.readFile('./database/tasks.json', 'utf8', (err, result) => {
+    fs.readFile(`./database/${user}.json`, 'utf8', (err, result) => {
         if (err) {
             newError('Could not read file: ', err);
         } else {
