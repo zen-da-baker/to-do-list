@@ -30,7 +30,7 @@ function displayData(list) {
 
     for (let i = 0; i < list.length; i++) {
         tasks.push(
-            `<div class="flex"> 
+            `<div class="flex item"> 
             
                 <input class="checkbox" type="checkbox" id="checkbox${i}" /> 
 
