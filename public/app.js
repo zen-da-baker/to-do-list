@@ -31,13 +31,33 @@ function displayData(list) {
     for (let i = 0; i < list.length; i++) {
         tasks.push(
             `<div class="flex"> 
-                <p>${i}. ${list[i]}</p> 
-                <button class="inline-btn" onclick="deleteTask(
+            
+                <input class="checkbox" type="checkbox" id="checkbox${i}" /> 
+
+                <p class="inline-text">
+                    ${list[i]}
+                </p>
+
+                <button 
+                    class="inline-btn" 
+                    onclick="deleteTask(
                     '${list[i]}'
-                    )">X</button> 
+                    )">
+                    X
+                </button> 
             </div>`
         );
     }
+
+    /*
+    const inlineBtn = document.getElementById('inline-btn');
+
+    function toggleDeleteBtn() {
+        inlineBtn.style.display = 'block';
+    }
+
+    // document.getElementById('inline-btn').addEventListener('mouseover', toggleDeleteBtn);
+    */
 
     console.log('displayData tasks: ');
     console.log(tasks);

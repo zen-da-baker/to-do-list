@@ -25,6 +25,18 @@ html {
     font-family: 'Courier New', Courier, monospace;
 }
 
+.inline-text {
+    margin: 0 0.5rem;
+}
+
+.checkbox:checked ~ .inline-text {
+    text-decoration: line-through;
+}
+
+.inline-text:hover ~ .inline-btn {
+    display: block;
+}
+
 /* 3. Structure
 ========================================================= */
 .header, .footer {
@@ -72,6 +84,8 @@ html {
     padding: 0.125rem 0.25rem;
 
     border-radius: 0.25rem;
+
+    display: none;
 }
 .inline-btn:hover {
     background-color: hsl(210, 10%, 20%);
