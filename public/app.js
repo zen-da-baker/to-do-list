@@ -34,12 +34,10 @@ function displayData(list) {
             
                 <input class="checkbox" type="checkbox" id="checkbox${i}" /> 
 
-                <p class="inline-text">
-                    ${list[i]}
-                </p>
+                <input type="text" class="inline-text" value="${list[i]}" />
 
                 <button 
-                    class="inline-btn" 
+                    class="inline-btn btn danger-btn" 
                     onclick="deleteTask(
                     '${list[i]}'
                     )">

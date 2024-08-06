@@ -27,7 +27,10 @@
                 <input id="login-username" type="text" placeholder="Username..." />
                 <input id="login-password" type="password" placeholder="Password..." />
 
-                <button id="login-btn" onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))">
+                <button 
+                    id="login-btn" 
+                    onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))"
+                    class="btn">
                         Login
                 </button>
 
@@ -39,7 +42,10 @@
                 <input id="signup-username" type="text" placeholder="Username..." />
                 <input id="signup-password" type="password" placeholder="Password..." />
 
-                <button id="signup-btn" onclick="createUser(captureInput('signup-username'), captureInput('signup-password')); storeUser(captureInput('signup-username'))">
+                <button 
+                    id="signup-btn" 
+                    onclick="createUser(captureInput('signup-username'), captureInput('signup-password')); storeUser(captureInput('signup-username'))"
+                    class="btn">
                     Create Account
                 </button>
             </div>
@@ -53,7 +59,7 @@
 
                     <div>
                         <h3>Log Out</h3>
-                        <button onclick="signout()">Signout</button>
+                        <button class="danger-btn btn" onclick="signout()">Signout</button>
                     </div>
                 </div>
                 
@@ -82,6 +88,7 @@
 
                 <h3>Display Tasks</h3>
                 <div id="display-tasks"></div>
+                <button id="add-task" class="btn">+</button>
             </div>
             
         </main>

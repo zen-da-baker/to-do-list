@@ -27,6 +27,15 @@ html {
 
 .inline-text {
     margin: 0 0.5rem;
+    padding: 0.25rem;
+    background-color: hsla(150, 50%, 90%, 0);
+    border: 0 solid black;
+    border-radius: 0.5rem;
+}
+.inline-text:hover {
+    background-color: hsla(150, 50%, 90%, 0.5);
+    border: 0.1rem solid black;
+    padding: 0.15rem;
 }
 
 .checkbox:checked ~ .inline-text {
@@ -77,6 +86,7 @@ html {
 
 .btn {
     padding: 0.25rem;
+    cursor: pointer;
 }
 
 .inline-btn {
@@ -87,13 +97,24 @@ html {
 
     display: none;
 }
-.inline-btn:hover {
-    background-color: hsl(210, 10%, 20%);
-    color: white;
-}
 
+.item {
+    width: 20rem;
+}
 .item:hover {
     background-color: hsl(1, 0%, 80%);
+}
+
+.danger-btn {
+    background-color: hsl(1, 90%, 30%);
+    color: white;
+}
+.danger-btn:hover {
+    background-color: hsl(1, 90%, 20%);
+}
+
+#add-task {
+    width: 10rem;
 }
 
 /* 5. Responsive Design
