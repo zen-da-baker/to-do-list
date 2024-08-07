@@ -34,6 +34,8 @@ async function submitCredentials(username, password) {
 
             app.style.display = 'block';
             loginScreen.style.display = 'none';
+
+            fetchTasks();
         } else {
             msg.style.display = 'block';
             msg.innerHTML = `<p>Sign In not successful. Account not found.</p>`
