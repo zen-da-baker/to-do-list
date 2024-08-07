@@ -23,7 +23,7 @@ if (login == false) {
 async function submitCredentials(username, password) {
     try {
         // Unsecure login via GET
-        const response = await fetch(loginPath + `?username=${username}&password=${password}`);
+        const response = await fetch(localhost + port + '/login' + `?username=${username}&password=${password}`);
 
         if (response.ok) {
             console.log('Login validated');
