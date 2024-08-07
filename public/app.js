@@ -27,9 +27,29 @@ function signout() {
 // Display Tasks list
 let taskList = [];
 
+// Store inputs for edits
+let inputs = [];
+
+// Clear arrays
+
+function clearArr(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        arr.pop();
+    }
+}
+
+function captureOriginal(original) {
+    inputs.push(original);
+}
+
+function captureEdit(edit) {
+    inputs.push(edit);
+
+    editTask(inputs[findLastIndex(inputs) - 1], inputs[findLastIndex(inputs)]);
+}
+
 // Display function
 function displayData(list) {
-    
 
     for (let i = 0; i < list.length; i++) {
         taskList.push(
@@ -37,7 +57,11 @@ function displayData(list) {
             
                 <input class="checkbox" type="checkbox" id="checkbox${i}" /> 
 
-                <input type="text" class="inline-text" value="${list[i]}" />
+                <input 
+                    type="text" class="inline-text" value="${list[i]}" id="item-${i}" 
+                    onclick="captureOriginal(captureInput('item-${i}'))" 
+                    onchange="captureEdit(captureInput('item-${i}'))"
+                />
 
                 <button 
                     class="inline-btn btn danger-btn" 
@@ -48,6 +72,8 @@ function displayData(list) {
                 </button> 
             </div>`
         );
+
+        // document.getElementById(`item-${i}`).addEventListener("keypress", captureEdit(captureInput(`item-${i}`)));
     }
 
     console.log('displayData tasks: ');
@@ -94,19 +120,18 @@ function storeUser(username) {
 
 // GET list
 async function fetchTasks() {
+
+    clearArr(taskList);
+
     try {
         const response = await fetch(localhost + port + tasks + `/${params[findLastIndex(params)]}`);
 
         if (response.ok) {
             const jsonResponse = await response.json();
+
             console.log(jsonResponse);
             console.log(jsonResponse.data.list[0]);
 
-            // document.getElementById('task-1').innerHTML = jsonResponse.data.list[0];
-
-            taskList.pop(taskList.length);
-
-            display.innerHTML = '';
 
             displayData(jsonResponse.data.list);
         } else {
@@ -137,8 +162,6 @@ async function createTask(value) {
 
             display.innerHTML = '';
 
-            taskList.pop(taskList.length);
-
             fetchTasks();
 
             console.log(jsonResponse);
@@ -157,18 +180,24 @@ async function editTask(original, edit) {
         const response = await fetch(localhost + port + tasks + `/${params[findLastIndex(params)]}` + `?original=${original}&edit=${edit}`, {method: 'put'});
 
         document.getElementById('original-task').value = '';
-        document.getElementById('new-task').value = '';
+        document.getElementById('new-task').value = '';     
         
+        clearArr(inputs);
 
         if (response.ok) {
             const jsonResponse = await response.json();
 
             display.innerHTML = '';
-            taskList.pop(taskList.length);
+
 
             fetchTasks()
 
+            console.log(inputs);
+
             console.log(jsonResponse);
+        } else {
+            console.log(inputs);
+            throw new Error('Could not submit PUT request: ' + err);
         }
     } catch(err) {
         throw new Error('Serverside PUT error: ' + err); 
@@ -186,7 +215,6 @@ async function deleteTask(value) {
 
         if (response.ok) {
             display.innerHTML = '';
-            taskList.pop(taskList.length);
             fetchTasks();
         }
         
