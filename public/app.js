@@ -24,12 +24,15 @@ function signout() {
     document.getElementById("signup-password").value = '';
 }
 
+// Display Tasks list
+let taskList = [];
+
 // Display function
 function displayData(list) {
-    let tasks = [];
+    
 
     for (let i = 0; i < list.length; i++) {
-        tasks.push(
+        taskList.push(
             `<div class="flex item"> 
             
                 <input class="checkbox" type="checkbox" id="checkbox${i}" /> 
@@ -47,20 +50,37 @@ function displayData(list) {
         );
     }
 
-    /*
-    const inlineBtn = document.getElementById('inline-btn');
-
-    function toggleDeleteBtn() {
-        inlineBtn.style.display = 'block';
-    }
-
-    // document.getElementById('inline-btn').addEventListener('mouseover', toggleDeleteBtn);
-    */
-
     console.log('displayData tasks: ');
-    console.log(tasks);
+    console.log(taskList);
 
-    display.innerHTML = tasks.join(" ");
+    display.innerHTML = taskList.join(" ");
+}
+
+// Add task
+function addTask() {
+    const add = document.getElementById('add-task');
+
+    display.innerHTML = '';
+
+    taskList.push(
+            `<div class="flex item">
+                <input class="checkbox" type="checkbox" id="checkbox${taskList.length}" />
+
+                <input type="text" class="inline-text" value="" id="item${taskList.length}" />
+
+                <button class="inline-btn btn" onclick="createTask(captureInput('item${taskList.length}'))">
+                    Create
+                </button> 
+
+                <button class="inline-btn btn danger-btn" onclick="deleteTask('${taskList.length}')">
+                    X
+                </button> 
+            </div>
+        `)
+
+    display.innerHTML = taskList.join(" ");
+
+    console.log(taskList);
 }
 
 // Store user
@@ -83,6 +103,10 @@ async function fetchTasks() {
             console.log(jsonResponse.data.list[0]);
 
             // document.getElementById('task-1').innerHTML = jsonResponse.data.list[0];
+
+            taskList.pop(taskList.length);
+
+            display.innerHTML = '';
 
             displayData(jsonResponse.data.list);
         } else {
@@ -111,6 +135,10 @@ async function createTask(value) {
         if (response.ok) {
             const jsonResponse = await response.json();
 
+            display.innerHTML = '';
+
+            taskList.pop(taskList.length);
+
             fetchTasks();
 
             console.log(jsonResponse);
@@ -135,6 +163,9 @@ async function editTask(original, edit) {
         if (response.ok) {
             const jsonResponse = await response.json();
 
+            display.innerHTML = '';
+            taskList.pop(taskList.length);
+
             fetchTasks()
 
             console.log(jsonResponse);
@@ -154,6 +185,8 @@ async function deleteTask(value) {
         document.getElementById('target-task').value = '';
 
         if (response.ok) {
+            display.innerHTML = '';
+            taskList.pop(taskList.length);
             fetchTasks();
         }
         
