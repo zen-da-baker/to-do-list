@@ -48,7 +48,7 @@ app.get('/tasks/:user', (req, res, next) => {
             newError('Could not read file', err);
         } else {
             const data = JSON.parse(result);
-            res.status(200).json({data: data});
+            res.status(200).json({data: data.list});
         }
 
     })

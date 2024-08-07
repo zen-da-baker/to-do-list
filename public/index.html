@@ -7,6 +7,7 @@
         <script src="app.js" defer></script>
         <script src="login.js" defer></script>
         <script src="signup.js" defer></script>
+        <script src="helper.js" defer></script>
 
         <link rel="stylesheet" href="style.css"/>
 
@@ -24,30 +25,36 @@
 
                 <div id="credential-msg"></div>
 
-                <input id="login-username" type="text" placeholder="Username..." />
-                <input id="login-password" type="password" placeholder="Password..." />
+                <div class="flex-col login-field">
+                    <input id="login-username" type="text" placeholder="Username..." class="login-input"/>
+                    <input id="login-password" type="password" placeholder="Password..." class="login-input"/>
 
-                <button 
-                    id="login-btn" 
-                    onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))"
-                    class="btn">
-                        Login
-                </button>
+                    <button 
+                        id="login-btn" 
+                        onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))"
+                        class="btn primary-btn">
+                            Login
+                    </button>    
+                </div>
+                
 
                 <p>Don't have an account yet? Create an account below.</p>
 
                 <hr>
 
                 <h3>Create Account</h3>
-                <input id="signup-username" type="text" placeholder="Username..." />
-                <input id="signup-password" type="password" placeholder="Password..." />
+                <div class="flex-col login-field">
+                    <input id="signup-username" type="text" placeholder="Username..." class="login-input"/>
+                    <input id="signup-password" type="password" placeholder="Password..." class="login-input"/>
 
-                <button 
-                    id="signup-btn" 
-                    onclick="createUser(captureInput('signup-username'), captureInput('signup-password')); storeUser(captureInput('signup-username'))"
-                    class="btn">
-                    Create Account
-                </button>
+                    <button 
+                        id="signup-btn" 
+                        onclick="createUser(captureInput('signup-username'), captureInput('signup-password')); storeUser(captureInput('signup-username'))"
+                        class="btn primary-btn">
+                        Create Account
+                    </button>    
+                </div>
+                
             </div>
 
             <div id="app">
@@ -65,7 +72,7 @@
                 
                 
 
-                <div class="card">
+                <div id="manual-operations" class="card">
                 
                     <h3>Get Tasks</h3>
                     <button id="fetchBtn" onclick="fetchTasks()" class="btn">Fetch Tasks</button>
@@ -86,9 +93,12 @@
 
                 </div>
 
-                <h3>Display Tasks</h3>
-                <div id="display-tasks"></div>
-                <button id="add-task" class="btn" onclick="addTask()">+</button>
+                <div class="app-body">
+                    <h3>Display Tasks</h3>
+                    <div id="display-tasks"></div>
+                    <button id="add-task" class="btn" onclick="addTask()">+</button>
+                </div>
+                
             </div>
             
         </main>

@@ -22,7 +22,7 @@ html {
 /* 2. Typography
 ========================================================= */
 * {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .inline-text {
@@ -48,18 +48,34 @@ html {
 
 /* 3. Structure
 ========================================================= */
+hr {
+    margin: 1rem;
+}
+
 .header, .footer {
     background-color: hsl(120, 50%, 80%);
     padding: 1rem;
 }
 
 .main {
-    background-color: hsl(120, 10%, 90%);
+    background-color: hsl(120, 10%, 95%);
     padding: 1rem;
 }
 
 .flex {
     display: flex;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.login-field {
+    height: 7rem;
+    width: 21rem;
+    padding: 0.5rem;
 }
 
 .card {
@@ -80,6 +96,14 @@ html {
     color: white;
 }
 
+#app {
+    min-height: 20rem;
+}
+
+.app-body {
+    margin-top: 2rem;
+}
+
 
 /* 4. Components
 ========================================================= */
@@ -87,7 +111,14 @@ html {
 .btn {
     padding: 0.25rem;
     cursor: pointer;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
+
+    border: 0.1rem solid black;
+
+    background-color: white;
+}
+.btn:hover {
+    background-color: hsl(1, 0%, 90%);
 }
 
 .inline-btn {
@@ -101,6 +132,7 @@ html {
 
 .item {
     width: 20rem;
+    margin: 0.25rem;
 }
 .item:hover {
     background-color: hsl(1, 0%, 80%);
@@ -114,9 +146,30 @@ html {
     background-color: hsl(1, 90%, 20%);
 }
 
+.primary-btn {
+    background-color: hsl(120, 50%, 30%);
+    color: white;
+}
+.primary-btn:hover {
+    background-color: hsl(120, 50%, 20%);
+}
+
+.login-input {
+    height: 1.5rem;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+
+    border: 0.1rem solid hsl(150, 50%, 20%);
+}
+
 #add-task {
     width: 10rem;
 }
 
 /* 5. Responsive Design
 ========================================================= */
+@media only screen and (max-width: 400px) {
+    .login-field {
+        width: 90%;
+    }
+}

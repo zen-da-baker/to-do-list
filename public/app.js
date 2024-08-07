@@ -1,5 +1,6 @@
 // DOM elements
 let display = document.getElementById('display-tasks');
+const manualOperations = document.getElementById('manual-operations');
 
 // Localhost
 // const localhost = 'http://localhost';
@@ -8,11 +9,6 @@ const port = ':5500';
 const tasks = '/tasks';
 const params = ['user'];
 const lastIndex = params.length - 1;
-
-// Helper functions
-function findLastIndex(arr) {
-    return arr.length - 1;
-}
 
 // Signout
 function signout() {
@@ -30,28 +26,6 @@ let taskList = [];
 
 // Store inputs for edits
 let inputs = [];
-
-// Clear arrays
-
-function clearArr(arr) {
-
-    while (arr.length > 0) {
-        arr.pop();
-    }
-
-    console.log('Array after clearArr');
-    console.log(arr);
-}
-
-function captureOriginal(original) {
-    inputs.push(original);
-}
-
-function captureEdit(edit) {
-    inputs.push(edit);
-
-    editTask(inputs[findLastIndex(inputs) - 1], inputs[findLastIndex(inputs)]);
-}
 
 // Display function
 function displayData(list) {
@@ -114,13 +88,6 @@ function addTask() {
     console.log(taskList);
 }
 
-// Store user
-function storeUser(username) {
-    params.push(username);
-
-    console.log('User: ' + username);
-}
-
 // API calls
 
 // GET list
@@ -133,22 +100,16 @@ async function fetchTasks() {
             const jsonResponse = await response.json();
 
             console.log(jsonResponse);
-            console.log(jsonResponse.data.list[0]);
+            console.log(jsonResponse.data[0]);
 
 
-            displayData(jsonResponse.data.list);
+            displayData(jsonResponse.data);
         } else {
             throw new Error('Response not ok');
         }
     } catch(err) {
         throw new Error('Serverside error fetching response' + err);
     }
-}
-
-function captureInput(id) {
-    const input = document.getElementById(id).value;
-    console.log('captureInput value: ' + input);
-    return input;
 }
 
 // Create list item
@@ -226,17 +187,5 @@ async function deleteTask(value) {
     }
 }
 
-if (app.style.display == 'block') {
-    fetchTasks();
-}
-
-
-// Event Listeners
-
-// Create task
-/*
-document.getElementById('new-task-btn').addEventListener(
-    "click", 
-    createTask(taskValue)
-);
-*/
+// Hide Manual operations if other parts of the file work as intended
+manualOperations.style.display = 'none';
