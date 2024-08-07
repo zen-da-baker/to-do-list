@@ -33,9 +33,13 @@ let inputs = [];
 // Clear arrays
 
 function clearArr(arr) {
-    for (let i = 0; i < arr.length; i++) {
+
+    while (arr.length > 0) {
         arr.pop();
     }
+
+    console.log('Array after clearArr');
+    console.log(arr);
 }
 
 function captureOriginal(original) {
@@ -50,6 +54,8 @@ function captureEdit(edit) {
 
 // Display function
 function displayData(list) {
+
+    clearArr(taskList);
 
     for (let i = 0; i < list.length; i++) {
         taskList.push(
@@ -72,11 +78,9 @@ function displayData(list) {
                 </button> 
             </div>`
         );
-
-        // document.getElementById(`item-${i}`).addEventListener("keypress", captureEdit(captureInput(`item-${i}`)));
     }
 
-    console.log('displayData tasks: ');
+    console.log('displayData taskList: ');
     console.log(taskList);
 
     display.innerHTML = taskList.join(" ");
@@ -120,8 +124,6 @@ function storeUser(username) {
 
 // GET list
 async function fetchTasks() {
-
-    clearArr(taskList);
 
     try {
         const response = await fetch(localhost + port + tasks + `/${params[findLastIndex(params)]}`);
