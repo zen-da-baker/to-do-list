@@ -21,6 +21,12 @@ if (login == false) {
 
 // Check login credintials 
 async function submitCredentials(username, password) {
+    
+    function cypher(input) {
+        const output = input;
+        return output;
+    }
+
     try {
         // Unsecure login via GET
         const response = await fetch(localhost + port + '/login' + `?username=${username}&password=${password}`);
