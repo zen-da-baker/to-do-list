@@ -3,22 +3,26 @@ const fs = require('fs');
 
 describe('GET all list items from user', () => {
     // Any hooks for set up
+    // Setup
+    let originalObj = {
+        username: 'test',
+        password: 'test',
+        list: ['cook dinner']
+    };
+
+    originalObj = JSON.stringify(originalObj);
+
+    let obj = {};
+    let newObj = {};
+
+    let path = '../database/test.json';
+
     before(() => {
         let path = '../database/test.json';
     })
-    
+
     beforeEach(() => {
         // Setup
-        let originalObj = {
-            username: 'test',
-            password: 'test',
-            list: ['cook dinner']
-        };
-
-        originalObj = JSON.stringify(originalObj);
-
-        let obj;
-        let newObj;
 
         fs.writeFile(path, originalObj, (err) => {
             if (err) {
@@ -50,10 +54,10 @@ describe('GET all list items from user', () => {
         })
 
         //Exercise
-        let obj = output[0];
+        obj = output[0];
 
         // Verification
-        assert.ok(obj.list[0] == 'cook dinner');
+        assert.ok(output[0].list[0] == 'cook dinner');
 
         // Teardown
     })
