@@ -20,39 +20,43 @@
         </header>
 
         <main class="main">
-            <div id="login">
-                <h2>Log In</h2>
+            <div class="flex" id="login">
+                <div class="login">
+                    <h2>Log In</h2>
 
-                <div id="credential-msg"></div>
+                    <div id="credential-msg"></div>
 
-                <div class="flex-col login-field">
-                    <input id="login-username" type="text" placeholder="Username..." class="login-input"/>
-                    <input id="login-password" type="password" placeholder="Password..." class="login-input"/>
+                    <div class="flex-col login-field">
+                        <input id="login-username" type="text" placeholder="Username..." class="login-input"/>
+                        <input id="login-password" type="password" placeholder="Password..." class="login-input"/>
 
-                    <button 
-                        id="login-btn" 
-                        onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))"
-                        class="btn primary-btn">
-                            Login
-                    </button>    
+                        <button 
+                            id="login-btn" 
+                            onclick="submitCredentials(captureInput('login-username'), captureInput('login-password')); storeUser(captureInput('login-username'))"
+                            class="btn primary-btn">
+                                Login
+                        </button>    
+                    </div>
+                    
+
+                    <p>Don't have an account yet? <br> Create an account below.</p>
                 </div>
-                
-
-                <p>Don't have an account yet? <br> Create an account below.</p>
 
                 <hr>
 
-                <h3>Create Account</h3>
-                <div class="flex-col login-field">
-                    <input id="signup-username" type="text" placeholder="Username..." class="login-input"/>
-                    <input id="signup-password" type="password" placeholder="Password..." class="login-input"/>
+                <div class="signup">
+                    <h3>Create Account</h3>
+                    <div class="flex-col login-field">
+                        <input id="signup-username" type="text" placeholder="Username..." class="login-input"/>
+                        <input id="signup-password" type="password" placeholder="Password..." class="login-input"/>
 
-                    <button 
-                        id="signup-btn" 
-                        onclick="createUser(captureInput('signup-username'), captureInput('signup-password')); storeUser(captureInput('signup-username'))"
-                        class="btn primary-btn">
-                        Create Account
-                    </button>    
+                        <button 
+                            id="signup-btn" 
+                            onclick="createUser(captureInput('signup-username'), captureInput('signup-password')); storeUser(captureInput('signup-username'))"
+                            class="btn primary-btn">
+                            Create Account
+                        </button>    
+                    </div>
                 </div>
                 
             </div>

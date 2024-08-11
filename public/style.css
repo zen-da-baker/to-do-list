@@ -25,17 +25,20 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.inline-text {
-    margin: 0 0.5rem;
-    padding: 0.25rem;
-    background-color: hsla(150, 50%, 90%, 0);
-    border: 0 solid black;
-    border-radius: 0.5rem;
+h1 {
+    font-size: 2.5rem;
+} 
+
+h2 {
+    font-size: 2rem;
+} 
+
+h3 {
+    font-size: 1.5rem;
 }
-.inline-text:hover {
-    background-color: hsla(150, 50%, 90%, 0.5);
-    border: 0.1rem solid black;
-    padding: 0.15rem;
+
+p, input, .btn {
+    font-size: 1rem;
 }
 
 .checkbox:checked ~ .inline-text {
@@ -74,8 +77,9 @@ hr {
 
 .login-field {
     height: 7rem;
-    width: 21rem;
-    padding: 0.5rem;
+    width: auto;
+    margin: 2rem;
+    padding: 0.25rem;
 }
 
 .card {
@@ -88,6 +92,19 @@ hr {
 .app-head {
     display: flex;
     justify-content: space-between;
+}
+
+.app-body {
+    margin: 0 5rem;
+}
+
+#login {
+    padding: 1rem;
+    margin: 0 auto;
+
+    width: 30rem;
+
+    background-color: hsl(1, 0%, 90%);
 }
 
 #credential-msg {
@@ -130,12 +147,24 @@ hr {
     display: none;
 }
 
+.inline-text {
+    margin: 0 0.5rem;
+    padding: 0.25rem;
+    background-color: hsla(150, 50%, 90%, 0);
+    border: 0 solid black;
+    border-radius: 0.5rem;
+}
+.inline-text:hover {
+    background-color: hsla(150, 50%, 90%, 0.5);
+    border: 0.1rem solid black;
+    padding: 0.15rem;
+}
+
 .item {
-    width: 20rem;
-    margin: 0.25rem;
+    padding: 0.35rem;
 }
 .item:hover {
-    background-color: hsl(1, 0%, 80%);
+    background-color: hsl(1, 0%, 90%);
 }
 
 .danger-btn {
@@ -168,8 +197,29 @@ hr {
 
 /* 5. Responsive Design
 ========================================================= */
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 600px) {
     .login-field {
         width: 90%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #login {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .login-field {
+        margin: 0;
+        padding: 0;
+    }
+
+    .login {
+        padding: 0.5rem;
+    }
+
+    .signup {
+        padding: 0.5rem;
     }
 }
