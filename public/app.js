@@ -4,22 +4,16 @@ const manualOperations = document.getElementById('manual-operations');
 
 // Localhost
 // const localhost = 'http://localhost';
-const localhost = 'http://192.168.2.156'
+const localhost = 'http://192.168.1.157'
 const port = ':5500';
 const tasks = '/tasks';
 const params = ['user'];
 const lastIndex = params.length - 1;
 
-// Signout
-function signout() {
-    app.style.display = 'none';
-    loginScreen.style.display = 'block';
+console.log('Params: ');
+console.log(params);
 
-    document.getElementById("login-username").value = '';
-    document.getElementById("login-password").value = '';
-    document.getElementById("signup-username").value = '';
-    document.getElementById("signup-password").value = '';
-}
+
 
 // Display Tasks list
 let taskList = [];
@@ -101,7 +95,6 @@ async function fetchTasks() {
 
             console.log(jsonResponse);
             console.log(jsonResponse.data[0]);
-
 
             displayData(jsonResponse.data);
         } else {

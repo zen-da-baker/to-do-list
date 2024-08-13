@@ -7,11 +7,53 @@ const loginBtn = document.getElementById('login-btn');
 // localhost path
 const loginPath = 'http://localhost:5500/login';
 
-// Login state
-let login = false;
+// Verify login through local storage
+let loginStatus;
+
+// LocalStorage login
+params.push(localStorage.getItem('username'));
+
+function verifyLogin() {
+    if (localStorage.getItem('loginStatus') == undefined) {
+        localStorage.setItem('loginStatus', 'false');
+        loginStatus = false;
+    }
+
+    if (localStorage.getItem('loginStatus') == 'false') {
+        loginStatus = false;
+    }
+
+    if (localStorage.getItem('loginStatus') == 'true' && localStorage.getItem('username') !== null) {
+        loginStatus = true;
+
+        console.log('Login Status: ');
+        console.log(localStorage.getItem('loginStatus'));
+    } else {
+        loginStatus = false;
+
+        console.log('Login Status: ');
+        console.log(localStorage.getItem('loginStatus'));
+    }
+}
+
+// Signout
+function signout() {
+    app.style.display = 'none';
+    loginScreen.style.display = 'block';
+
+    document.getElementById("login-username").value = '';
+    document.getElementById("login-password").value = '';
+    document.getElementById("signup-username").value = '';
+    document.getElementById("signup-password").value = '';
+
+    loginStatus = false;
+
+    localStorage.setItem('loginStatus', 'false');
+    localStorage.removeItem('username');
+}
 
 // Login state logic
-if (login == false) {
+if (loginStatus == false) {
     app.style.display = 'none';
     loginScreen.style.display = 'block';
 } else {
@@ -22,10 +64,12 @@ if (login == false) {
 // Check login credintials 
 async function submitCredentials(username, password) {
     
+    /*
     function cypher(input) {
         const output = input;
         return output;
     }
+    */
 
     try {
         // Unsecure login via GET
@@ -40,6 +84,11 @@ async function submitCredentials(username, password) {
 
             app.style.display = 'block';
             loginScreen.style.display = 'none';
+
+            localStorage.setItem('loginStatus', true);
+            localStorage.setItem('username', `${username}`);
+
+            params.push(`${username}`);
 
             fetchTasks();
         } else {

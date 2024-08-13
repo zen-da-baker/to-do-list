@@ -2,7 +2,8 @@
 
 // Find last index of an array
 function findLastIndex(arr) {
-    return arr.length - 1;
+    const value = arr.length - 1;
+    return value;
 }
 
 // Clears chosen array items
