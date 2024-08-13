@@ -13,6 +13,10 @@ const lastIndex = params.length - 1;
 console.log('Params: ');
 console.log(params);
 
+console.log('LocalStorage: ');
+console.log(localStorage.getItem('username'));
+console.log(localStorage.getItem('loginStatus'));
+
 
 
 // Display Tasks list

@@ -8,28 +8,33 @@ const loginBtn = document.getElementById('login-btn');
 const loginPath = 'http://localhost:5500/login';
 
 // Verify login through local storage
-let loginStatus;
+let loginStatus = {};
+
+loginStatus.verify = localStorage.getItem('loginStatus');
+console.log(loginStatus.verify);
 
 // LocalStorage login
 params.push(localStorage.getItem('username'));
 
 function verifyLogin() {
-    if (localStorage.getItem('loginStatus') == undefined) {
+    if (localStorage.getItem('loginStatus') == undefined || localStorage.getItem('loginStatus') == null) {
         localStorage.setItem('loginStatus', 'false');
-        loginStatus = false;
+        loginStatus.verify = false;
     }
 
     if (localStorage.getItem('loginStatus') == 'false') {
-        loginStatus = false;
+        loginStatus.verify = false;
     }
 
     if (localStorage.getItem('loginStatus') == 'true' && localStorage.getItem('username') !== null) {
-        loginStatus = true;
+        loginStatus.verify = true;
 
         console.log('Login Status: ');
         console.log(localStorage.getItem('loginStatus'));
+
+        fetchTasks();
     } else {
-        loginStatus = false;
+        loginStatus.verify = false;
 
         console.log('Login Status: ');
         console.log(localStorage.getItem('loginStatus'));
@@ -46,14 +51,22 @@ function signout() {
     document.getElementById("signup-username").value = '';
     document.getElementById("signup-password").value = '';
 
-    loginStatus = false;
+    loginStatus.verify = false;
 
     localStorage.setItem('loginStatus', 'false');
+
+    console.log('Login Status: ');
+    console.log(localStorage.getItem('loginStatus'));
+
+    localStorage.removeItem('loginStatus');
     localStorage.removeItem('username');
 }
 
 // Login state logic
-if (loginStatus == false) {
+if (loginStatus.verify == true) {
+    app.style.display = 'block';
+    loginScreen.style.display = 'none';
+} else if (loginStatus.verify == false || loginStatus.verify == undefined || loginStatus.verify == null) {
     app.style.display = 'none';
     loginScreen.style.display = 'block';
 } else {
