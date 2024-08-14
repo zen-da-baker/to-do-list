@@ -7,6 +7,13 @@ const loginBtn = document.getElementById('login-btn');
 // localhost path
 const loginPath = 'http://localhost:5500/login';
 
+// Helper function
+// Find last index of an array
+function findLastIndex(arr) {
+    const value = arr.length - 1;
+    return value;
+}
+
 // Verify login through local storage
 let loginStatus = {};
 
@@ -40,6 +47,8 @@ function verifyLogin() {
         console.log(localStorage.getItem('loginStatus'));
     }
 }
+
+verifyLogin();
 
 // Signout
 function signout() {

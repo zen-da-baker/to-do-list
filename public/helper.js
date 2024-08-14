@@ -1,11 +1,5 @@
 // Helper functions
 
-// Find last index of an array
-function findLastIndex(arr) {
-    const value = arr.length - 1;
-    return value;
-}
-
 // Clears chosen array items
 function clearArr(arr) {
 
