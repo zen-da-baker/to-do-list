@@ -1,5 +1,5 @@
 // App GET login credentials
-app.get('/login', (req, res, next) => {
+function getLogin(req, res, next) {
     const username = req.query.username;
     const password = req.query.password;
 
@@ -15,11 +15,10 @@ app.get('/login', (req, res, next) => {
         console.log("Login not found on server side");
         res.status(404).send();
     }
-
-})
+}
 
 // App GET all tasks
-app.get('/tasks/:user', (req, res, next) => {
+function getAllTasks(req, res, next) {
     const user = req.params.user;
 
     console.log('User at GET: ' + user);
@@ -35,4 +34,6 @@ app.get('/tasks/:user', (req, res, next) => {
         }
 
     })
-})
+}
+
+module.exports = { getLogin, getAllTasks };
