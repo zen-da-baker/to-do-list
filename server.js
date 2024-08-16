@@ -17,10 +17,10 @@ const { getLogin, getAllTasks } = require('./modules/get.js');
 app.use(express.static('public'));
 
 // App GET login credentials
-app.get('/login', getLogin(req, res, next));
+app.get('/login', getLogin);
 
 // App GET all tasks
-app.get('/tasks/:user', getAllTasks(req, res, next));
+app.get('/tasks/:user', getAllTasks);
 
 // App POST new task
 app.post('/tasks/:user', (req, res, next) => {
@@ -190,4 +190,4 @@ app.delete('/tasks/:user', (req, res, next) => {
 })
 
 // App listen
-app.listen(port, '192.168.1.157', console.log(listeningMsg));
+app.listen(port, '192.168.2.156', console.log(listeningMsg));

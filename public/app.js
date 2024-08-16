@@ -4,7 +4,7 @@ const manualOperations = document.getElementById('manual-operations');
 
 // Localhost
 // const localhost = 'http://localhost';
-const localhost = 'http://192.168.1.157'
+const localhost = 'http://192.168.2.156'
 const port = ':5500';
 const tasks = '/tasks';
 const params = ['user'];
