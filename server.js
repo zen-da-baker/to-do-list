@@ -5,6 +5,9 @@ const app = express();
 // Import FS
 const fs = require('fs');
 
+// Import middleware
+const morgan = require('morgan');
+
 // Listen to port
 const port = 5500;
 const listeningMsg = 'Listening to Port: ' + port;
@@ -17,6 +20,9 @@ const { deleteTask } = require('./modules/delete.js');
 
 // Host public folder
 app.use(express.static('public'));
+
+// log info
+app.use(morgan('tiny'));
 
 // App GET login credentials
 app.get('/login', getLogin);
