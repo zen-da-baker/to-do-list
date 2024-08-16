@@ -1,3 +1,9 @@
+// Import FS
+const fs = require('fs');
+
+// helper functions
+const { newError } = require('./helper.js');
+
 function checkCredentials(username, password) {
     let validationStatus = [false];
 

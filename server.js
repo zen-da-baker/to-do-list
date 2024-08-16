@@ -10,8 +10,10 @@ const port = 5500;
 const listeningMsg = 'Listening to Port: ' + port;
 
 // Module imports
-const { newError, findIndex, checkCredentials } = require('./modules/helper.js');
 const { getLogin, getAllTasks } = require('./modules/get.js');
+const { newTask, newUser } = require('./modules/post.js');
+const { editTask } = require('./modules/put.js');
+const { deleteTask } = require('./modules/delete.js');
 
 // Host public folder
 app.use(express.static('public'));
@@ -23,171 +25,16 @@ app.get('/login', getLogin);
 app.get('/tasks/:user', getAllTasks);
 
 // App POST new task
-app.post('/tasks/:user', (req, res, next) => {
-    const user = req.params.user;
-    
-    console.log('req.query.task');
-    console.log(req.query.task);
-
-    fs.readFile(`./database/${user}.json`, 'utf8', (err, result) => {
-        if (err) {
-            newError('Could not read file: ', err);
-        } else {
-
-            console.log('result: ');
-            console.log(result);
-
-            let data = JSON.parse(result);
-
-            data.list.push(req.query.task);
-
-            let returnData = JSON.stringify(data);
-
-            console.log('returnData: ');
-            console.log(returnData);
-
-            fs.writeFile(`./database/${user}.json`, returnData, (err) => {
-                if (err) {
-                    newError('Write failed in POST: ', err);
-                } else {
-                    console.log('Write successful');
-                }
-            });
-
-            const lastIndex = data.list.length - 1;
-            
-            res.status(201).json({data: data.list[lastIndex]});
-        }
-    })
-})
+app.post('/tasks/:user', newTask);
 
 // User POST new user
-app.post('/signup', (req, res, next) => {
-    const username = req.query.username;
-    const password = req.query.password;
-
-    fs.readFile(`./database/${username}.json`, 'utf8', (err, result) => {
-        if (!result) {
-            const data  = {
-                username: username,
-                password: password,
-                list: []
-            };
-
-            const responseData = JSON.stringify(data);
-
-            console.log('Response data string: ');
-            console.log(responseData);
-
-            fs.writeFile(`./database/${username}.json`, responseData, (err) => {
-                if (err) {
-                    newError('Write failed in POST for new user', err);
-                } else {
-                    console.log('Write successful');
-                }
-            });
-
-            res.status(201).json({creation: true, username: username});
-        } 
-
-        if (err) {
-            res.status(403).send();
-        }
-    });
-})
+app.post('/signup', newUser);
 
 // App PUT edit task
-app.put('/tasks/:user', (req, res, next) => {
-    const user = req.params.user;
-
-    const original = req.query.original;
-    const edit = req.query.edit;
-
-    console.log('Original: ' + original);
-    console.log('Edit: ' + edit);
-
-    fs.readFile(`./database/${user}.json`, 'utf8', (err, result) => {
-        if (err) {
-            newError('Could not read file: ', err);
-        } else {
-            let data = JSON.parse(result);
-
-            const originalIndex = findIndex(original, data.list);
-            console.log('originalIndex: ');
-            console.log(originalIndex);
-
-            if (originalIndex !== -1) {
-                data.list[originalIndex] = edit;
-
-                console.log('Data object after edit');
-                console.log(data);
-
-                let returnData = JSON.stringify(data);
-
-                console.log('returnData stringify: ');
-                console.log(returnData);
-
-                fs.writeFile(`./database/${user}.json`, returnData, (err) => {
-                    if (err) {
-                        newError('Write failed in PUT: ', err);
-                    } else {
-                        console.log('Write successful');
-                        console.log(returnData);
-                        
-                        res.status(200).json({data: data.list[originalIndex]});
-                    }
-                })
-            } else {
-                res.status(404).send();
-            }
-        }
-    })
-})
+app.put('/tasks/:user', editTask);
 
 // App DELETE item
-app.delete('/tasks/:user', (req, res, next) => {
-    const user = req.params.user;
-
-    const target = req.query.task;
-    console.log('Target: ' + target);
-
-    fs.readFile(`./database/${user}.json`, 'utf8', (err, result) => {
-        if (err) {
-            res.status(404).send();
-            newError('Could not read file: ' + err);
-        } else {
-            console.log('Result: ');
-            console.log(result);
-
-            let data = JSON.parse(result);
-
-            console.log('Data object parsed: ');
-            console.log(data);
-
-            const targetIndex = findIndex(target, data.list);
-            console.log('Target index: ');
-            console.log(targetIndex);
-
-            if (targetIndex === -1) {
-                res.status(404).send();
-            } else {
-                data.list.splice(targetIndex, 1);
-
-                const returnData = JSON.stringify(data);
-
-                fs.writeFile(`./database/${user}.json`, returnData, (err) => {
-                    if (err) {
-                        newError('Could not write DELETE request: ', err);
-                    } else {
-                        console.log('Write successful');
-                        res.status(204).send();
-                    }
-                })
-            }
-            
-        }
-    })
-})
+app.delete('/tasks/:user', deleteTask);
 
 // App listen
-app.listen(port, '192.168.2.156', console.log(listeningMsg));
+app.listen(port, 'localhost', console.log(listeningMsg));

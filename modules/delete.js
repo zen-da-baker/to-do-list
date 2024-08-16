@@ -1,5 +1,11 @@
+// Import FS
+const fs = require('fs');
+
+// helper functions
+const { newError, findIndex } = require('./helper.js');
+
 // App DELETE item
-app.delete('/tasks/:user', (req, res, next) => {
+function deleteTask (req, res, next) {
     const user = req.params.user;
 
     const target = req.query.task;
@@ -41,4 +47,6 @@ app.delete('/tasks/:user', (req, res, next) => {
             
         }
     })
-})
+}
+
+module.exports = { deleteTask };

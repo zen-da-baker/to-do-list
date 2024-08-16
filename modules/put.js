@@ -1,5 +1,11 @@
+// Import FS
+const fs = require('fs');
+
+// helper functions
+const { newError, findIndex } = require('./helper.js');
+
 // App PUT edit task
-app.put('/tasks/:user', (req, res, next) => {
+function editTask (req, res, next) {
     const user = req.params.user;
 
     const original = req.query.original;
@@ -44,4 +50,6 @@ app.put('/tasks/:user', (req, res, next) => {
             }
         }
     })
-})
+}
+
+module.exports = { editTask };

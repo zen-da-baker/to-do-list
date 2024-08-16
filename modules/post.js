@@ -1,5 +1,11 @@
+// Import FS
+const fs = require('fs');
+
+// helper functions
+const { newError } = require('./helper.js');
+
 // App POST new task
-app.post('/tasks/:user', (req, res, next) => {
+function newTask (req, res, next) {
     const user = req.params.user;
     
     console.log('req.query.task');
@@ -35,10 +41,10 @@ app.post('/tasks/:user', (req, res, next) => {
             res.status(201).json({data: data.list[lastIndex]});
         }
     })
-})
+}
 
 // User POST new user
-app.post('/signup', (req, res, next) => {
+function newUser(req, res, next) {
     const username = req.query.username;
     const password = req.query.password;
 
@@ -70,4 +76,6 @@ app.post('/signup', (req, res, next) => {
             res.status(403).send();
         }
     });
-})
+}
+
+module.exports = { newTask, newUser };
