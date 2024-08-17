@@ -42,5 +42,12 @@ app.put('/tasks/:user', editTask);
 // App DELETE item
 app.delete('/tasks/:user', deleteTask);
 
+app.use((err, req, res, next) => {
+    if (!err.status) {
+      err.status = 500;
+    }
+    res.status(err.status).send(err.message);
+  })
+
 // App listen
 app.listen(port, 'localhost', console.log(listeningMsg));
