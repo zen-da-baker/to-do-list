@@ -7,6 +7,7 @@ const fs = require('fs');
 
 // Import middleware
 const morgan = require('morgan');
+const cors = require('cors');
 
 // Listen to port
 const port = 5500;
@@ -23,6 +24,9 @@ app.use(express.static('public'));
 
 // log info
 app.use(morgan('tiny'));
+
+// Enable CORS security
+app.use(cors());
 
 // App GET login credentials
 app.get('/login', getLogin);
