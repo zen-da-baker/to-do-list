@@ -2,6 +2,9 @@
 const express = require('express');
 const app = express();
 
+// Import Bcrypt
+const bcrypt = require('bcrypt');
+
 // Import FS
 const fs = require('fs');
 
