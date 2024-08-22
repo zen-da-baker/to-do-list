@@ -1,37 +1,6 @@
 // Import FS
 const fs = require('fs');
 
-// Import passport
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
-// Add authentication
-app.use(passport.initialize());
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    db.users.findByUsername(username, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-
-      if (!user) {
-        return done(null, false);
-      }
-
-      if (user.password != password) {
-        return done(null, false);
-      }
-
-      return done(null, user);
-    })
-  }
-))
-
-function passportAuthenticate() {
-    passport.authenticate('local', {failureRedirect: '/login'});
-}
-
 // helper functions
 const { newError } = require('./helper.js');
 

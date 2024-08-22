@@ -68,4 +68,14 @@ function checkCredentials(username, password) {
     return validationStatus[1];
 }
 
-module.exports = { newError, findIndex, checkCredentials };
+function checkExistingUser(username) {
+    const result = fs.readFileSync(`./database/${username}.json`, {encoding: 'utf8', flag: 'r'});
+
+    if (result) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+module.exports = { newError, findIndex, checkCredentials, checkExistingUser };

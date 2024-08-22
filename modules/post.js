@@ -1,8 +1,19 @@
 // Import FS
 const fs = require('fs');
 
+// Import passport
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+function passportAuthenticate() {
+    passport.authenticate('local', {failureRedirect: '/login'});
+}
+
+// Import bcrypt
+const bcrypt = require('bcrypt');
+
 // helper functions
-const { newError } = require('./helper.js');
+const { newError, checkExistingUser } = require('./helper.js');
 
 // App POST new task
 function newTask (req, res, next) {
@@ -48,34 +59,74 @@ function newUser(req, res, next) {
     const username = req.query.username;
     const password = req.query.password;
 
-    fs.readFile(`./database/${username}.json`, 'utf8', (err, result) => {
-        if (!result) {
-            const data  = {
-                username: username,
-                password: password,
-                list: []
-            };
+    if (checkExistingUser(username) == false) {
+        console.log('User does not already exist, success');
 
-            const responseData = JSON.stringify(data);
+        async function hashPassword(password, saltRounds) {
+            try {
+                const salt = await bcrypt.genSalt(saltRounds);
 
-            console.log('Response data string: ');
-            console.log(responseData);
+                const hash = await bcrypt.hash(password, salt);
 
-            fs.writeFile(`./database/${username}.json`, responseData, (err) => {
-                if (err) {
-                    newError('Write failed in POST for new user', err);
-                } else {
-                    console.log('Write successful');
-                }
-            });
+                console.log('Hashing executed');
 
-            res.status(201).json({creation: true, username: username});
-        } 
-
-        if (err) {
-            res.status(403).send();
+                return hash;
+            } catch(err) {
+                res.status(500).json({msg: "Error hashing the password of the user"});
+                newError('Error with hashing the password of a new user: ', err);
+            }
         }
-    });
+
+        const hash = hashPassword(password, 5);
+
+        console.log('hash password executed');
+
+        console.log(hash);
+
+        const data = {
+            username: username,
+            password: hash.toString(),
+            list: []
+        }
+
+        const responseData = JSON.stringify(data);
+
+        console.log('Data object prepared for file write');
+
+        fs.writeFile(`./database/${username}.json`, responseData, (err) => {
+            if (err) {
+                res.status(500).json({msg: "Error writing the user file via POST"});
+                newError('Write data failed in POST for new user: ', err);
+            } else {
+                console.log('Write successful');
+            }
+        })
+
+        console.log('Successful file write status sent to client');
+
+        return res.status(201).json({creation: true, username: username});
+    } else {
+
+        return res.status(403).json({msg: "User exists, cannot create new user"});
+        
+    }
 }
 
-module.exports = { newTask, newUser };
+function login(req, res, next) {
+    const username = req.params.username;
+    const password = req.params.password;
+
+    const file = fs.readFileSync(`./database.${username}.json`, 'utf8');
+
+    const obj = JSON.parse(file);
+
+    const result = bcrypt.compare(password, obj.password);
+
+    if (result == true) {
+        res.status(200).json({validation: true});
+    } else {
+        res.status(403).json({validation: false});
+    }
+}
+
+module.exports = { newTask, newUser, login };
