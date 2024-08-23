@@ -69,13 +69,19 @@ function checkCredentials(username, password) {
 }
 
 function checkExistingUser(username) {
-    const result = fs.readFileSync(`./database/${username}.json`, {encoding: 'utf8', flag: 'r'});
 
-    if (result) {
-        return true;
-    } else {
-        return false;
-    }
+    return fs.readFile(`./database/users.json`, 'utf8', (err, result) => {
+
+        if (err) {
+            throw new Error(err);
+        }
+
+        const userList = JSON.parse(result);
+
+        console.log(userList.users.includes(username));
+
+        return userList.users.includes(username);
+    })
 }
 
 module.exports = { newError, findIndex, checkCredentials, checkExistingUser };

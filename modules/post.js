@@ -55,14 +55,16 @@ function newTask (req, res, next) {
 }
 
 // User POST new user
-function newUser(req, res, next) {
+async function newUser(req, res, next) {
     const username = req.query.username;
     const password = req.query.password;
 
-    if (checkExistingUser(username) == false) {
+    const match = checkExistingUser(username);
+
+    if (!match) {
         console.log('User does not already exist, success');
 
-        async function hashPassword(password, saltRounds) {
+        const hashPassword = async (password, saltRounds) => {
             try {
                 const salt = await bcrypt.genSalt(saltRounds);
 
@@ -77,7 +79,7 @@ function newUser(req, res, next) {
             }
         }
 
-        const hash = hashPassword(password, 5);
+        const hash = await hashPassword(password, 5);
 
         console.log('hash password executed');
 
@@ -91,6 +93,14 @@ function newUser(req, res, next) {
 
         const responseData = JSON.stringify(data);
 
+        const userList = fs.readFileSync('./database/users.json');
+
+        let list = JSON.parse(userList);
+
+        list.users.push(username);
+
+        const usersJSON = JSON.stringify(list);
+
         console.log('Data object prepared for file write');
 
         fs.writeFile(`./database/${username}.json`, responseData, (err) => {
@@ -102,6 +112,14 @@ function newUser(req, res, next) {
             }
         })
 
+        fs.writeFile('./database/users.json', usersJSON, (err) => {
+            if (err) {
+                res.status(500).json({msg: "Error updating the list of users"});
+            } else {
+                console.log("User list update complete");
+            }
+        });
+
         console.log('Successful file write status sent to client');
 
         return res.status(201).json({creation: true, username: username});
@@ -112,15 +130,17 @@ function newUser(req, res, next) {
     }
 }
 
-function login(req, res, next) {
-    const username = req.params.username;
-    const password = req.params.password;
+async function login(req, res, next) {
+    const username = req.query.username;
+    const password = req.query.password;
 
-    const file = fs.readFileSync(`./database.${username}.json`, 'utf8');
+    // const check = checkExistingUser(username);
+
+    const file = fs.readFileSync(`./database/${username}.json`, {encodning: 'utf8', flag: 'r'});
 
     const obj = JSON.parse(file);
 
-    const result = bcrypt.compare(password, obj.password);
+    const result = await bcrypt.compare(password, obj.password);
 
     if (result == true) {
         res.status(200).json({validation: true});
