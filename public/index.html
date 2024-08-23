@@ -72,6 +72,12 @@
                         <h3>Log Out</h3>
                         <button class="danger-btn btn" onclick="signout()">Signout</button>
                     </div>
+
+                    <div>
+                        <h3>Delete Account</h3>
+                        <input type="password" id="delete-user-password" class="login-input" placeholder="Password..." />
+                        <button class="danger-btn btn" onclick="deleteUser(captureInput('delete-user-password'))">Delete</button>
+                    </div>
                 </div>
                 
                 

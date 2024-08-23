@@ -184,5 +184,31 @@ async function deleteTask(value) {
     }
 }
 
+// Delete User
+async function deleteUser(password) {
+    const username = localStorage.getItem('username');
+
+    console.log(username);
+
+    try {
+        const response = await fetch(localhost + port + '/user' + `/${params[findLastIndex(params)]}` + `?password=${password}`, {method: "delete"});
+
+        const jsonResponse = await response.json();
+
+        if (response.ok) {
+            console.log(jsonResponse);
+
+            app.style.display = 'none';
+            loginScreen.style.display = 'block';
+
+            localStorage.removeItem('username');
+        } else {
+            console.log(jsonResponse);
+        }
+    } catch(err) {
+        throw new Error(err);
+    }
+}
+
 // Hide Manual operations if other parts of the file work as intended
 manualOperations.style.display = 'none';

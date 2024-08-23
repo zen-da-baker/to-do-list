@@ -61,6 +61,8 @@ async function newUser(req, res, next) {
 
     const match = checkExistingUser(username);
 
+    console.log(match);
+
     if (!match) {
         console.log('User does not already exist, success');
 

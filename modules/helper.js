@@ -70,7 +70,15 @@ function checkCredentials(username, password) {
 
 function checkExistingUser(username) {
 
-    return fs.readFile(`./database/users.json`, 'utf8', (err, result) => {
+    const file = fs.readFileSync('./database/users.json', {encoding: 'utf8', flag: 'r'});
+
+    const obj = JSON.parse(file);
+
+    return obj.users.includes(username);
+
+    const status = ['blah'];
+
+    fs.readFile(`./database/users.json`, 'utf8', async (err, result) => {
 
         if (err) {
             throw new Error(err);
@@ -78,10 +86,24 @@ function checkExistingUser(username) {
 
         const userList = JSON.parse(result);
 
-        console.log(userList.users.includes(username));
+        console.log("checkExistingUsers value: " + userList.users.includes(username));
 
-        return userList.users.includes(username);
+        const match = await userList.users.includes(username);
+
+        if (match == true) {
+            status.push("true");
+        } else {
+            status.push("false");
+        }
     })
+
+    console.log("status array " + status[1]);
+
+    if (status[1] == true) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 module.exports = { newError, findIndex, checkCredentials, checkExistingUser };

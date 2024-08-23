@@ -28,7 +28,7 @@ const listeningMsg = 'Listening to Port: ' + port;
 const { getLogin, getAllTasks } = require('./modules/get.js');
 const { newTask, newUser, login } = require('./modules/post.js');
 const { editTask } = require('./modules/put.js');
-const { deleteTask } = require('./modules/delete.js');
+const { deleteTask, deleteUser } = require('./modules/delete.js');
 
 // Host public folder
 app.use(express.static('public'));
@@ -96,6 +96,9 @@ app.put('/tasks/:user', editTask);
 
 // App DELETE item
 app.delete('/tasks/:user', deleteTask);
+
+// App DELETE user
+app.delete('/user/:user', deleteUser);
 
 /*
 app.use((err, req, res, next) => {
