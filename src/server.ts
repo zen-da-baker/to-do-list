@@ -49,7 +49,7 @@ passport.use(new LocalStrategy(
     const fileObj = JSON.parse(result);
 
     if (fileObj.username != username) {
-      return done(err);
+      return done("File could not be found");
     }
 
     bcrypt.compare(password, hash);

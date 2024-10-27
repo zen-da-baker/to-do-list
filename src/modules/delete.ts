@@ -73,7 +73,7 @@ async function deleteUser(req, res, next) {
         if (result == true) {
             fs.unlink(`./database/${username}.json`, (err) => {
                 if (err) {
-                    console.log("Could not remove file for " + user);
+                    console.log("Could not remove file for " + username);
                     res.status(500).json({msg: err});
                     throw new Error(err);
                 } else {
