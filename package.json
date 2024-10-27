@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha tests/get-tests.js",
-    "start": "node server.js"
+    "start": "node build/server.js"
   },
   "keywords": [],
   "author": "Zen",

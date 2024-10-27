@@ -1,47 +1,37 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // Import Express
 const express = require('express');
 const app = express();
-
 // Import passport
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
 function passportAuthenticate() {
-    passport.authenticate('local', {failureRedirect: '/login'});
+    passport.authenticate('local', { failureRedirect: '/login' });
 }
-
 // Import Bcrypt
 const bcrypt = require('bcrypt');
-
 // Import FS
 const fs = require('fs');
-
 // Import middleware
 const morgan = require('morgan');
 const cors = require('cors');
-
 // Listen to port
 const port = 5500;
 const listeningMsg = 'Listening to Port: ' + port;
-
 // Module imports
 const { getLogin, getAllTasks } = require('./modules/get.js');
 const { newTask, newUser, login } = require('./modules/post.js');
 const { editTask } = require('./modules/put.js');
 const { deleteTask, deleteUser } = require('./modules/delete.js');
-
 // Host public folder
 app.use(express.static('public'));
-
 // log info
 app.use(morgan('tiny'));
-
 // Enable CORS security
 app.use(cors());
-
 // Add authentication
 app.use(passport.initialize());
-
 /*
 passport.use(new LocalStrategy(
   function(username: string, password: string, done: Function) {
@@ -77,31 +67,22 @@ passport.use(new LocalStrategy(
   }
 ))
   */
-
 // App GET login credentials
 app.get('/login', getLogin);
-
 // App GET all tasks
 app.get('/tasks/:user', getAllTasks);
-
 // App POST new task
 app.post('/tasks/:user', newTask);
-
 // User POST new user
 app.post('/signup', newUser);
-
 // User POST login
 app.post('/login', login);
-
 // App PUT edit task
 app.put('/tasks/:user', editTask);
-
 // App DELETE item
 app.delete('/tasks/:user', deleteTask);
-
 // App DELETE user
 app.delete('/user/:user', deleteUser);
-
 /*
 app.use((err, req, res, next) => {
     if (!err.status) {
@@ -110,6 +91,6 @@ app.use((err, req, res, next) => {
     res.status(err.status).send(err.message);
   })
 */
-
 // App listen
 app.listen(port, 'localhost', console.log(listeningMsg));
+//# sourceMappingURL=server.js.map
