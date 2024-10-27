@@ -3,9 +3,9 @@ let display = document.getElementById('display-tasks');
 const manualOperations = document.getElementById('manual-operations');
 
 // Localhost
-// const localhost = 'http://localhost';
-const localhost = 'https://to-do-list-ok2h.onrender.com';
-const port = ':5500';
+const localhost = 'http://localhost';
+// const localhost = 'https://to-do-list-ok2h.onrender.com';
+const port = ':80';
 const tasks = '/tasks';
 const params = ['user'];
 const lastIndex = params.length - 1;

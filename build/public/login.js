@@ -5,7 +5,7 @@ const loginScreen = document.getElementById('login');
 const loginBtn = document.getElementById('login-btn');
 
 // localhost path
-const loginPath = 'http://localhost:5500/login';
+const loginPath = 'http://localhost:80/login';
 
 // Helper function
 // Find last index of an array

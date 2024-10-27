@@ -21,7 +21,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 // Listen to port
-const port = 5500;
+const port = 80;
 const listeningMsg = 'Listening to Port: ' + port;
 
 // Module imports
@@ -31,7 +31,7 @@ const { editTask } = require('./modules/put.js');
 const { deleteTask, deleteUser } = require('./modules/delete.js');
 
 // Host public folder
-app.use(express.static('public'));
+// app.use(express.static('./public/index.html'));
 
 // log info
 app.use(morgan('tiny'));

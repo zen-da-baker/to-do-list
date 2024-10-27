@@ -2,7 +2,7 @@
 const msg = document.getElementById('credential-msg');
 
 // API link
-const localpath = 'http://localhost:5500/signup';
+const localpath = 'http://localhost:80/signup';
 
 // Create user function
 async function createUser(username, password) {
